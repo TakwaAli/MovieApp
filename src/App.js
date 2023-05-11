@@ -24,6 +24,7 @@ function App() {
         <Navbar></Navbar>
         <Switch> 
           <Route exact  path={"/"} component={HomeComponent} />
+          <Route exact  path={"/MovieApp"} component={HomeComponent} />
           <Route exact path={"/login"} component={LoginComponent} /> 
           <Route exact path={"/signup"} component={SignComponent} />
           <Route exact path={"/view/:id"} component={ShowCardComponent} />
