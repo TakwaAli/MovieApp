@@ -1,0 +1,16 @@
+.color{
+    color: rgb(226, 207, 32);
+}
+.select{
+    cursor: pointer;
+}
+.dark-link{
+  text-decoration: none;
+  color: rgb(122, 122, 119);
+}
+.dark-link:hover{
+  color: yellow;
+}
+.des-color{
+  color: rgb(122, 122, 119);
+}
