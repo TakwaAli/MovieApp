@@ -6,8 +6,9 @@ import { Link } from "react-router-dom";
 import MoviedivComponent from "./moviedivComponent";
 import { Movies } from "../store/action"
 import { LangContext } from "../Context/LangContext";
+import './style.css'
 function HomeComponent() {
-
+    const [searchTitle, setsearchTitle] = useState("")
     //const [MovieData, setMovieData ] = useState([])
     const theme = useSelector((state) => state.theme)
     const dispatch = useDispatch()
@@ -33,46 +34,61 @@ function HomeComponent() {
     return (
         <>
 
-            <div className="container-fluid p-4">
+            <div className="container-fluid p-4 ">
+                <input type="text" placeholder="search ..." className="search"
+                    onChange={(e) => setsearchTitle(e.target.value)}
+                ></input>
+
+             
                 <div className="row d-flex justify-content-center ">
-                    {movies.map((singlemovie) => {
-                        return (
-                            <>
-                                <div key={singlemovie.id} className="col-lg-3 col-md-6 col-sm-9 border border-warning m-3 ">
-                                    <MoviedivComponent moviedata={singlemovie} />
-                                </div>
 
-                            </>
+                    {movies.filter((value) => {
+                        if (searchTitle == "") {
+                            //console.log(value);
+                            return value
+                        } else if (value.original_title
+                            .toLowerCase().includes(searchTitle.toLowerCase())) {
+                            return value
+                        }
+                    })
+                        .map((singlemovie) => {
+                            return (
+                                <>
+                                    <div key={singlemovie.id} className="col-lg-3 col-md-6 col-sm-9 border border-warning m-3 ">
+                                        <MoviedivComponent moviedata={singlemovie} />
+                                    </div>
 
-                        )
-                    })}
+                                </>
+
+                            )
+                        })}
 
                 </div>
                 <div className="row d-flex justify-content-center" >
-                <div className=" col-lg-3 col-md-6 col-sm-9">
-                    <nav className="mx-5"  aria-label="Page navigation example">
-                        <ul class="pagination ">
-                            <li class="page-item ">
-                                <a class="page-link btn border border-warning bg-black text-warning" onClick={() => setnumber(--pagenumber)} aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item "><a class="page-link btn border border-warning bg-black text-warning" onClick={() => setnumber(1)}>1</a></li>
-                            <li class="page-item"><a class="page-link btn border border-warning bg-black text-warning" onClick={() => setnumber(2)}>2</a></li>
-                            <li class="page-item"><a class="page-link btn border border-warning bg-black text-warning" onClick={() => setnumber(3)}>3</a></li>
-                            <li class="page-item">
-                                <a class="page-link page-link btn border border-warning bg-black text-warning" onClick={() => setnumber(++pagenumber)} aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                 {/*    <button className="btn border border-warning text-warning w-50" onClick={() => setcontextlang(contextlang == "English" ? "Arabic" : "English")}>change language</button> */}
+                    <div className=" col-lg-3 col-md-6 col-sm-9">
+                        <nav className="mx-5" aria-label="Page navigation example">
+                            <ul class="pagination ">
+                                <li class="page-item ">
+                                    <a class="page-link btn border border-warning bg-black text-warning" onClick={() => setnumber(--pagenumber)} aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item "><a class="page-link btn border border-warning bg-black text-warning" onClick={() => setnumber(1)}>1</a></li>
+                                <li class="page-item"><a class="page-link btn border border-warning bg-black text-warning" onClick={() => setnumber(2)}>2</a></li>
+                                <li class="page-item"><a class="page-link btn border border-warning bg-black text-warning" onClick={() => setnumber(3)}>3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link page-link btn border border-warning bg-black text-warning" onClick={() => setnumber(++pagenumber)} aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        {/*    <button className="btn border border-warning text-warning w-50" onClick={() => setcontextlang(contextlang == "English" ? "Arabic" : "English")}>change language</button> */}
                     </div>
                 </div>
-                
 
-              
+
+
 
             </div>
         </>
